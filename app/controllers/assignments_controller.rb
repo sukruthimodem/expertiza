@@ -470,9 +470,9 @@ class AssignmentsController < ApplicationController
   def retrieve_assignment_form
     @assignment_form = AssignmentForm.create_form_object(params[:id])
     @assignment_form.assignment.instructor ||= current_user
-    params[:assignment_form][:assignment_questionnaire].reject! do |q|
-      q[:questionnaire_id].empty?
-    end
+    # params[:assignment_form][:assignment_questionnaire].reject! do |q|
+    #   q[:questionnaire_id].empty?
+    # end
     # Deleting Due date info from table if meta-review is unchecked. - UNITY ID: ralwan and vsreeni
     @due_date_info = DueDate.where(parent_id: params[:id])
     DueDate.where(parent_id: params[:id], deadline_type_id: 5).destroy_all if params[:metareview_allowed] == 'false'
